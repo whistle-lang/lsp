@@ -3,12 +3,12 @@ use tower_lsp::lsp_types::*;
 use tower_lsp::{Client, LanguageServer, LspService, Server};
 
 #[derive(Debug)]
-struct Backend {
+struct WhistleBackend {
     client: Client,
 }
 
 #[tower_lsp::async_trait]
-impl LanguageServer for Backend {
+impl LanguageServer for WhistleBackend {
     async fn initialize(&self, _: InitializeParams) -> Result<InitializeResult> {
         Ok(InitializeResult {
             capabilities: ServerCapabilities {
@@ -35,8 +35,14 @@ impl LanguageServer for Backend {
             //types
             CompletionItem::new_simple("i32".to_string(), "32-bit signed integer type".to_string()),
             CompletionItem::new_simple("i64".to_string(), "64-bit signed integer type".to_string()),
-            CompletionItem::new_simple("u32".to_string(), "32-bit unsigned integer type".to_string()),
-            CompletionItem::new_simple("u64".to_string(), "64-bit unsigned integer type".to_string()),
+            CompletionItem::new_simple(
+                "u32".to_string(),
+                "32-bit unsigned integer type".to_string(),
+            ),
+            CompletionItem::new_simple(
+                "u64".to_string(),
+                "64-bit unsigned integer type".to_string(),
+            ),
             CompletionItem::new_simple("f32".to_string(), "32-bit floating point type".to_string()),
             CompletionItem::new_simple("f64".to_string(), "64-bit floating point type".to_string()),
             CompletionItem::new_simple("str".to_string(), "string".to_string()),
@@ -49,8 +55,14 @@ impl LanguageServer for Backend {
             CompletionItem::new_simple("if".to_string(), "if statement".to_string()),
             CompletionItem::new_simple("else".to_string(), "else statement".to_string()),
             CompletionItem::new_simple("while".to_string(), "while statement".to_string()),
-            CompletionItem::new_simple("var".to_string(), "declares a function-scoped or globally-scoped variable".to_string()),
-            CompletionItem::new_simple("val".to_string(), "declares a constant variable".to_string()),
+            CompletionItem::new_simple(
+                "var".to_string(),
+                "declares a function-scoped or globally-scoped variable".to_string(),
+            ),
+            CompletionItem::new_simple(
+                "val".to_string(),
+                "declares a constant variable".to_string(),
+            ),
             CompletionItem::new_simple("fn".to_string(), "declares a function".to_string()),
             CompletionItem::new_simple("export".to_string(), "export declaration".to_string()),
         ])))
@@ -70,7 +82,6 @@ impl LanguageServer for Backend {
 async fn main() {
     let stdin = tokio::io::stdin();
     let stdout = tokio::io::stdout();
-
-    let (service, socket) = LspService::new(|client| Backend { client });
+    let (service, socket) = LspService::new(|client| WhistleBackend { client });
     Server::new(stdin, stdout, socket).serve(service).await;
 }

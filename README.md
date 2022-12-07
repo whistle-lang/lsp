@@ -1,8 +1,23 @@
 # Whistle Language Server Protocol
 
+## Installing
+
+### Git
+
 ```shell
-cd client && tsc && cd ..
+cargo install --git https://github.com/whistle-lang/lsp
+```
+
+### Local
+
+```shell
+git clone https://github.com/whistle-lang/lsp
+cd lsp
 cargo install --path ./
 ```
 
-run and debug `launch client` on vscode
+### Usage
+
+```shell
+whistle_lsp
+```
