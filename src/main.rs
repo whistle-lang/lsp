@@ -32,15 +32,23 @@ impl LanguageServer for Backend {
 
     async fn completion(&self, _: CompletionParams) -> Result<Option<CompletionResponse>> {
         Ok(Some(CompletionResponse::Array(vec![
-            CompletionItem::new_simple("Hello".to_string(), "Some detail".to_string()),
-            CompletionItem::new_simple("Bye".to_string(), "More detail".to_string())
+            CompletionItem::new_simple("i32".to_string(), "32-bit signed integer type.".to_string()),
+            CompletionItem::new_simple("i64".to_string(), "64-bit signed integer type.".to_string()),
+            CompletionItem::new_simple("u32".to_string(), "32-bit unsigned integer type.".to_string()),
+            CompletionItem::new_simple("u64".to_string(), "64-bit unsigned integer type.".to_string()),
+            CompletionItem::new_simple("f32".to_string(), "32-bit floating point type.".to_string()),
+            CompletionItem::new_simple("f64".to_string(), "64-bit floating point type.".to_string()),
+            CompletionItem::new_simple("str".to_string(), "String.".to_string()),
+            CompletionItem::new_simple("char".to_string(), "Single character.".to_string()),
+            CompletionItem::new_simple("bool".to_string(), "Boolean.".to_string()),
+            CompletionItem::new_simple("none".to_string(), "No value.".to_string()),
         ])))
     }
 
     async fn hover(&self, _: HoverParams) -> Result<Option<Hover>> {
         Ok(Some(Hover {
             contents: HoverContents::Scalar(
-                MarkedString::String("You're hovering!".to_string())
+                MarkedString::String("Hover Test!".to_string())
             ),
             range: None
         }))

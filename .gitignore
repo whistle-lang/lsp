@@ -1,2 +1,7 @@
 /target
 Cargo.lock
+package-lock.json
+node_modules
+dist
+pnpm-lock.yaml
+.gitpod.yml
