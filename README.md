@@ -1,0 +1,1 @@
+# Whistle Language Server Protocol
