@@ -30,6 +30,46 @@ impl LanguageServer for WhistleBackend {
         Ok(())
     }
 
+    // async fn did_change_workspace_folders(&self, _: DidChangeWorkspaceFoldersParams) {
+    //     self.client
+    //         .log_message(MessageType::INFO, "workspace folders changed!")
+    //         .await;
+    // }
+
+    // async fn did_change_configuration(&self, _: DidChangeConfigurationParams) {
+    //     self.client
+    //         .log_message(MessageType::INFO, "configuration changed!")
+    //         .await;
+    // }
+
+    // async fn did_change_watched_files(&self, _: DidChangeWatchedFilesParams) {
+    //     self.client
+    //         .log_message(MessageType::INFO, "watched files have changed!")
+    //         .await;
+    // }
+    // async fn did_open(&self, _: DidOpenTextDocumentParams) {
+    //     self.client
+    //         .log_message(MessageType::INFO, "file opened!")
+    //         .await;
+    // }
+
+    // async fn did_change(&self, _: DidChangeTextDocumentParams) {
+    //     self.client
+    //         .log_message(MessageType::INFO, "file changed!")
+    //         .await;
+    // }
+
+    // async fn did_save(&self, _: DidSaveTextDocumentParams) {
+    //     self.client
+    //         .log_message(MessageType::INFO, "file saved!")
+    //         .await;
+    // }
+
+    // async fn did_close(&self, _: DidCloseTextDocumentParams) {
+    //     self.client
+    //         .log_message(MessageType::INFO, "file closed!")
+    //         .await;
+    // }
     async fn completion(&self, _: CompletionParams) -> Result<Option<CompletionResponse>> {
         Ok(Some(CompletionResponse::Array(vec![
             //types
@@ -58,6 +98,8 @@ impl LanguageServer for WhistleBackend {
             CompletionItem::new_simple("if".to_string(), "if statement".to_string()),
             CompletionItem::new_simple("else".to_string(), "else statement".to_string()),
             CompletionItem::new_simple("while".to_string(), "while statement".to_string()),
+            CompletionItem::new_simple("break".to_string(), "break statement".to_string()),
+            CompletionItem::new_simple("continue".to_string(), "continue statement".to_string()),
             CompletionItem::new_simple(
                 "var".to_string(),
                 "declares a function-scoped or globally-scoped variable".to_string(),
@@ -79,7 +121,8 @@ impl LanguageServer for WhistleBackend {
         //     .join("\n"),
         // };
         Ok(Some(Hover {
-            contents: HoverContents::Scalar(MarkedString::String("".to_string())), /// HoverContents::Markup(markdown),
+            contents: HoverContents::Scalar(MarkedString::String("".to_string())),
+            /// HoverContents::Markup(markdown),
             range: None,
         }))
     }
