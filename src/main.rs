@@ -22,7 +22,7 @@ impl LanguageServer for WhistleBackend {
 
     async fn initialized(&self, _: InitializedParams) {
         self.client
-            .log_message(MessageType::INFO, "server initialized!")
+            .log_message(MessageType::INFO, "Whistle language server initialized")
             .await;
     }
 
@@ -52,6 +52,9 @@ impl LanguageServer for WhistleBackend {
             //keywords
             CompletionItem::new_simple("import".to_string(), "import declaration".to_string()),
             CompletionItem::new_simple("builtin".to_string(), "builtin declaration".to_string()),
+            CompletionItem::new_simple("fn".to_string(), "declares a function".to_string()),
+            CompletionItem::new_simple("export".to_string(), "export declaration".to_string()),
+            CompletionItem::new_simple("return".to_string(), "return statement".to_string()),
             CompletionItem::new_simple("if".to_string(), "if statement".to_string()),
             CompletionItem::new_simple("else".to_string(), "else statement".to_string()),
             CompletionItem::new_simple("while".to_string(), "while statement".to_string()),
@@ -63,19 +66,23 @@ impl LanguageServer for WhistleBackend {
                 "val".to_string(),
                 "declares a constant variable".to_string(),
             ),
-            CompletionItem::new_simple("fn".to_string(), "declares a function".to_string()),
-            CompletionItem::new_simple("export".to_string(), "export declaration".to_string()),
         ])))
     }
 
-    // async fn hover(&self, _: HoverParams) -> Result<Option<Hover>> {
-    //     Ok(Some(Hover {
-    //         contents: HoverContents::Scalar(
-    //             MarkedString::String("Hover Test!".to_string()),
-    //         ),
-    //         range: None
-    //     }))
-    // }
+    async fn hover(&self, _: HoverParams) -> Result<Option<Hover>> {
+        // let _markdown = MarkupContent {
+        //     kind: MarkupKind::Markdown,
+        //     value: [
+        //         "# Header",
+        //         "Some text",
+        //     ]
+        //     .join("\n"),
+        // };
+        Ok(Some(Hover {
+            contents: HoverContents::Scalar(MarkedString::String("".to_string())), /// HoverContents::Markup(markdown),
+            range: None,
+        }))
+    }
 }
 
 #[tokio::main]
